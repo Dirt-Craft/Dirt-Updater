@@ -1,8 +1,8 @@
-package dirtcraft.dirtupdater;
+package net.dirtcraft.dirtupdater;
 
 import com.google.gson.JsonObject;
 import com.google.inject.Inject;
-import dirtcraft.dirtupdater.data.DataUtils;
+import net.dirtcraft.dirtupdater.utils.DataUtils;
 import org.slf4j.Logger;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.Listener;
@@ -13,7 +13,7 @@ import org.spongepowered.api.plugin.Plugin;
         id = "dirt-updater",
         name = "Dirt Updater",
         authors = {
-                "Juliann",
+                "juliann",
                 "ExperiencedDev/MrDj200"
         }
 )
@@ -25,17 +25,17 @@ public class DirtUpdater {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
         // This is just for testing purposes of course
-        logger.info("[Dirt-Updater] Testing stuff now...");
+        logger.info("Testing stuff now...");
         logger.info(DataUtils.getStringFromURL("https://ci.whipit.de/job/DCTest/lastSuccessfulBuild/api/json"));
         JsonObject js = DataUtils.getJsonObjFromString(DataUtils.getStringFromURL("https://ci.whipit.de/job/DCTest/lastSuccessfulBuild/api/json"));
         if(!js.isJsonObject()){
-            logger.error("[Dirt-Updater] Website is not returning a Json string");
+            logger.error("Website is not returning a Json string");
         }
-        logger.info("[Dirt-Updater] Testing stuff is now complete.");
+        logger.info("Testing stuff is now complete.");
     }
 
     @Listener
     public void onServerStop(GameStoppedServerEvent event){
-        logger.info("[Dirt-Updater] Checking for updates...");
+        logger.info("Checking for updates...");
     }
 }

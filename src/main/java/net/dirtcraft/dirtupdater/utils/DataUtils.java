@@ -1,6 +1,5 @@
-package dirtcraft.dirtupdater.data;
+package net.dirtcraft.dirtupdater.utils;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
