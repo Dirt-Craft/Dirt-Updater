@@ -30,7 +30,10 @@ public class DirtUpdater {
         JsonObject js = DataUtils.getJsonObjFromString(DataUtils.getStringFromURL("https://ci.whipit.de/job/DCTest/lastSuccessfulBuild/api/json"));
         if(!js.isJsonObject()){
             logger.error("Website is not returning a Json string");
+        }else{
+            logger.info(DataUtils.getArtifactUrlFromJson(js));
         }
+
         logger.info("Testing stuff is now complete.");
     }
 
