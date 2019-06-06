@@ -31,7 +31,7 @@ shadowJar {
     classifier = null
     configurations = [project.configurations.compile]
 
-    relocate('org.apache', 'net.dirtcraft.org.shaded.apache')
+    relocate('org.apache', 'net.dirtcraft.updater.org.shaded.apache')
 }
 
 sponge.plugin.id = pluginId
