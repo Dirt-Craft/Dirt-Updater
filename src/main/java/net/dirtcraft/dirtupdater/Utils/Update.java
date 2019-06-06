@@ -75,9 +75,7 @@ public class Update {
 
     private static boolean checkPluginDir(File pluginDir, String name) {
         for (File plugins : pluginDir.listFiles()) {
-            if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
-                return true;
-            }
+            if (plugins.getName().toLowerCase().contains(name.toLowerCase())) return true;
         }
         DirtUpdater.getLogger().warn("Could not find \"" + name + "\" jar, downloading a new one...");
         return false;
