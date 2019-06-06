@@ -9,6 +9,7 @@ public class EventListeners {
     @Listener
     public void onServerStarted(GameStartedServerEvent event) {
         Update.checkUpdates();
+        DataUtils.logPlugins();
     }
 
     @Listener
