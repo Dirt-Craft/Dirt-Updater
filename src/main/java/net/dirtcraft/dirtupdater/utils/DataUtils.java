@@ -1,16 +1,17 @@
-package net.dirtcraft.dirtupdater.utils;
+package net.dirtcraft.dirtupdater.Utils;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.inject.Inject;
+import com.google.gson.reflect.TypeToken;
 import net.dirtcraft.dirtupdater.DirtUpdater;
-import org.slf4j.Logger;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
+import java.util.HashMap;
 
 public class DataUtils {
     public static String getStringFromURL(String url) {
@@ -26,26 +27,65 @@ public class DataUtils {
         }
     }
 
-    public static JsonObject getJsonObjFromString(String jsonString){
+    public static JsonObject getJsonObjFromString(String jsonString) {
         return new JsonParser().parse(jsonString).getAsJsonObject();
     }
 
-    public static String getArtifactUrlFromJson(JsonObject js){
-        if(!js.isJsonObject()){
-            return null;
+    public static String getArtifactJarFromJson(JsonObject js) {
+        if(!js.isJsonObject()) return null;
+
+        return js.get("url").toString() +
+                        "artifact" + "/" + "build" + "/" + "libs" + "/" +
+                        js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString()
+                .replace("\"", "")
+                .replace("jenkins.dirtcraft.net", "164.132.201.67:8080");
+    }
+
+    public static String getFileName(JsonObject js) {
+        if(!js.isJsonObject()) return null;
+
+        return js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString()
+                        .replace("\"", "");
+    }
+
+/*    public static String getFullDisplayName(JsonObject js) {
+        if(!js.isJsonObject()) return null;
+
+        String url =
+                js.get("url").toString() +
+                        "artifact" + "/" +
+                        js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName");
+
+        return url.replace("\"", "");
+    }*/
+
+    public static Integer getBuildNumber(JsonObject js) {
+        if(!js.isJsonObject()) return null;
+
+        //return Integer.parseInt(js.get("id").toString());
+        return js.get("number").getAsInt();
+
+    }
+
+    public static HashMap<String, String> jsonToMap() {
+        return new Gson().fromJson(DirtUpdater.globalJSONString, new TypeToken<HashMap<String, String>>(){}.getType());
+    }
+
+    /*public static boolean downloadJar(String URL) {
+        try {
+            for (File file : DirtUpdater.getContainer().getSource().get().getParent().toFile().listFiles()) {
+                if (!file.getName().equalsIgnoreCase("DCTest-1.0-SNAPSHOT.jar")) {
+
+                }
+            }
+            URL stringToURL = new URL(URL);
+            File pluginDir = DirtUpdater.getContainer().getSource().get().getParent().toFile();
+            FileUtils.copyURLToFile(stringToURL, pluginDir);
+            return true;
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            return false;
         }
-        StringBuilder url = new StringBuilder();
-        url
-                .append(js.get("url").toString())
-                .append("artifact/")
-                .append(js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString());
-
-        return url.toString().replace("\"", "");
-    }
-
-    public static File getFileFromURL(String url){
-        // ToDo: Download the file. Maybe add as parameter the desired path aswell?
-        return null;
-    }
+    }*/
 
 }
