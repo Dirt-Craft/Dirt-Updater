@@ -36,7 +36,8 @@ public class DataUtils {
 
         return js.get("url").toString() +
                         "artifact" + "/" + "build" + "/" + "libs" + "/" +
-                        js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString();
+                        js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString()
+                .replace("\"", "");
     }
 
     public static String getFileName(JsonObject js) {
