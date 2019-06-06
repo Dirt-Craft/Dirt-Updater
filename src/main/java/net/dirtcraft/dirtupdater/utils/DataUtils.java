@@ -36,9 +36,7 @@ public class DataUtils {
 
         return js.get("url").toString() +
                         "artifact" + "/" + "build" + "/" + "libs" + "/" +
-                        js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString()
-                .replace("\"", "")
-                .replace("jenkins.dirtcraft.net", "164.132.201.67:8080");
+                        js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString();
     }
 
     public static String getFileName(JsonObject js) {

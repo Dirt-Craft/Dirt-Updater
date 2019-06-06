@@ -89,12 +89,14 @@ public class DirtUpdater {
                         try {
                             FileUtils.copyURLToFile(new URL(
                                     DataUtils.getArtifactJarFromJson(js)
-                            ), new File(pluginDir + File.separator + name));
+                                    .replace("\"", "")
+                                    .replace("jenkins.dirtcraft.net", "164.132.201.67:8080")
+                            ), new File(pluginDir + File.separator + pluginName));
 
                             PluginConfiguration.Main.Projects.put(name, buildNumber);
                             ConfigManager.save();
 
-                            logger.warn("DOWNLAODED SUCCESFULLY!");
+                            logger.warn(pluginName + " " + "has been downloaded successfully!");
 
                         } catch (IOException exception) {
                             exception.printStackTrace();
