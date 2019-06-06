@@ -46,8 +46,8 @@ public class DirtUpdater {
 
     private static DirtUpdater instance;
 
-    public static String globalJSONString = DataUtils.getStringFromURL("http://dirtcraft.gg/plugin/update.json");
-    public static JsonObject globalJSON = DataUtils.getJsonObjFromString(DataUtils.getStringFromURL("http://dirtcraft.gg/plugin/update.json"));
+    public static String globalJSONString = DataUtils.getStringFromURL("http://164.132.201.67/plugin/update.json");
+    public static JsonObject globalJSON = DataUtils.getJsonObjFromString(DataUtils.getStringFromURL("http://164.132.201.67/plugin/update.json"));
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
@@ -57,8 +57,6 @@ public class DirtUpdater {
 
     @Listener
     public void onServerStarted(GameStartedServerEvent event) {
-       // DataUtils.updateConfig();
-     //   configManager = new ConfigManager(loader);
         checkUpdates();
     }
 
@@ -77,6 +75,7 @@ public class DirtUpdater {
             if (!PluginConfiguration.Main.Projects.containsKey(name)) {
                 PluginConfiguration.Main.Projects.put(name, buildNumber);
                 ConfigManager.save();
+                logger.warn("Added new plugin: " + name);
             } else if (PluginConfiguration.Main.Projects.get(name) != buildNumber) {
                 for (File plugins : pluginDir.listFiles()) {
                     if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
