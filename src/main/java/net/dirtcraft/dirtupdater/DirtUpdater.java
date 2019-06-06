@@ -2,6 +2,7 @@ package net.dirtcraft.dirtupdater;
 
 import com.google.gson.JsonObject;
 import com.google.inject.Inject;
+import com.offbytwo.jenkins.JenkinsServer;
 import net.dirtcraft.dirtupdater.Configuration.ConfigManager;
 import net.dirtcraft.dirtupdater.Configuration.PluginConfiguration;
 import net.dirtcraft.dirtupdater.Utils.DataUtils;
@@ -19,6 +20,8 @@ import org.spongepowered.api.plugin.PluginContainer;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 @Plugin(
@@ -104,6 +107,10 @@ public class DirtUpdater {
                 }
             }
         });
+    }
+
+    private void initJenkins() throws URISyntaxException {
+        JenkinsServer jenkins = new JenkinsServer(new URI("http://164.132.201.67:8080"), "admin", "password");
     }
 
     public static DirtUpdater getInstance() {

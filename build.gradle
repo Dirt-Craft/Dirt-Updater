@@ -11,6 +11,7 @@ targetCompatibility = '1.8'
 dependencies {
     compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile 'com.offbytwo.jenkins:jenkins-client:0.3.8'
 }
 
 sponge.plugin.id = pluginId
