@@ -50,11 +50,6 @@ public class DirtUpdater {
         Sponge.getEventManager().registerListeners(instance, new EventListeners());
     }
 
-
-    public static DirtUpdater getInstance() {
-        return instance;
-    }
-
     public static Logger getLogger() {
         return instance.logger;
     }
