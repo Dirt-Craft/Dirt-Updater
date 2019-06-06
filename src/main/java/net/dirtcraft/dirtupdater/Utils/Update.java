@@ -35,21 +35,24 @@ public class Update {
                     exception.printStackTrace();
                 }
 
-            } else if (PluginConfiguration.Main.Projects.get(name) != buildNumber) {
+            } else if (!checkPluginDir(pluginDir, name)) {
                 try {
-                    if (!checkPluginDir(pluginDir, name)) {
-                        download(pluginDir, name, buildNumber);
-                        return;
-                    }
-                    for (File plugins : pluginDir.listFiles()) {
-                        if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
-                            plugins.delete();
-                            download(pluginDir, name, buildNumber);
-                        }
-                    }
+                    download(pluginDir, name, buildNumber);
+                    return;
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
+            } else if (PluginConfiguration.Main.Projects.get(name) != buildNumber) {
+                    for (File plugins : pluginDir.listFiles()) {
+                        if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
+                            try {
+                                plugins.delete();
+                                download(pluginDir, name, buildNumber);
+                            } catch (IOException exception) {
+                                exception.printStackTrace();
+                            }
+                        }
+                    }
             }
         });
     }
