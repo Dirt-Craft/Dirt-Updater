@@ -60,7 +60,6 @@ public class DirtUpdater {
        // DataUtils.updateConfig();
      //   configManager = new ConfigManager(loader);
         checkUpdates();
-        logger.warn("This is a test!");
     }
 
     @Listener
