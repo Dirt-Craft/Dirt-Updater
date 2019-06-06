@@ -56,10 +56,10 @@ public class DirtUpdater {
     }
 
     public static Logger getLogger() {
-        return getInstance().logger;
+        return instance.logger;
     }
 
     public static PluginContainer getContainer() {
-        return getInstance().container;
+        return instance.container;
     }
 }
