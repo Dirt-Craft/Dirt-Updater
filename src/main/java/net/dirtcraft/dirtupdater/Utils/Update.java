@@ -27,10 +27,10 @@ public class Update {
 
             if (!PluginConfiguration.Main.Projects.containsKey(name)) {
                 try {
-                    download(pluginDir, name, buildNumber);
+                    DirtUpdater.getLogger().warn("Added new plugin: " + name);
                     PluginConfiguration.Main.Projects.put(name, buildNumber);
                     ConfigManager.save();
-                    DirtUpdater.getLogger().warn("Added new plugin: " + name);
+                    download(pluginDir, name, buildNumber);
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }

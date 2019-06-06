@@ -60,7 +60,7 @@ public class DataUtils {
 
     public static void logPlugins() {
         DirtUpdater.getLogger().info("---- Plugins To Check Updates ----");
-        jsonToMap().keySet().forEach(name -> DirtUpdater.getLogger().info("> " + name));
+        jsonToMap().keySet().forEach(name -> DirtUpdater.getLogger().info("• " + name));
     }
 
 }
