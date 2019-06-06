@@ -26,20 +26,25 @@ public class Update {
             int buildNumber = DataUtils.getBuildNumber(DataUtils.getJsonObjFromString(DataUtils.getStringFromURL(url)));
 
             if (!PluginConfiguration.Main.Projects.containsKey(name)) {
-                PluginConfiguration.Main.Projects.put(name, buildNumber);
-                ConfigManager.save();
-                DirtUpdater.getLogger().warn("Added new plugin: " + name);
+                try {
+                    download(pluginDir, name, buildNumber);
+                    PluginConfiguration.Main.Projects.put(name, buildNumber);
+                    ConfigManager.save();
+                    DirtUpdater.getLogger().warn("Added new plugin: " + name);
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
 
             } else if (PluginConfiguration.Main.Projects.get(name) != buildNumber) {
                 try {
                     if (!checkPluginDir(pluginDir, name)) {
                         download(pluginDir, name, buildNumber);
+                        return;
                     }
                     for (File plugins : pluginDir.listFiles()) {
                         if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
                             plugins.delete();
                             download(pluginDir, name, buildNumber);
-
                         }
                     }
                 } catch (IOException exception) {
