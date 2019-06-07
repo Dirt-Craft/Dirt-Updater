@@ -1,37 +1,16 @@
 plugins {
     id 'org.spongepowered.plugin' version '0.8.1'
-    /*id 'com.github.johnrengelman.shadow' version '4.0.4'
-    id 'java'*/
 }
-/*
-configurations {
-    compile.extendsFrom shadow
-}
-*/
+
 group = pluginGroup
 version = pluginVersion
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-/*repositories {
-    jcenter()
-}*/
-
 dependencies {
     compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 }
-/*
-jar.enabled = true
-
-build.dependsOn shadowJar
-
-shadowJar {
-    classifier = null
-    configurations = [project.configurations.compile]
-
-    relocate('org.apache', 'net.dirtcraft.updater.org.shaded.apache')
-}*/
 
 sponge.plugin.id = pluginId
