@@ -74,6 +74,7 @@ public class DataUtils {
                 .setColor(Color.GREEN)
                 .setTitle("<:redbulletpoint:539273059631104052>**Dirt-Updater**<:redbulletpoint:539273059631104052>")
                 .setDescription("**" + name + "** has been updated successfully!")
+                .setFooter("ModPack:" + " " + SpongeDiscordLib.getServerName(), null)
                 .setTimestamp(Instant.now())
                 .build();
 
