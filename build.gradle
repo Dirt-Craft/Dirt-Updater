@@ -1,5 +1,6 @@
 plugins {
     id 'org.spongepowered.plugin' version '0.8.1'
+    id 'java'
 }
 
 group = pluginGroup
@@ -7,6 +8,11 @@ version = pluginVersion
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
+
+repositories {
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
 
 dependencies {
     compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'

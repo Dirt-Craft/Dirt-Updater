@@ -5,12 +5,17 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import net.dirtcraft.dirtupdater.DirtUpdater;
+import net.dirtcraft.discord.spongediscordlib.SpongeDiscordLib;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.time.Instant;
 import java.util.HashMap;
 
 public class DataUtils {
@@ -61,6 +66,23 @@ public class DataUtils {
     public static void logPlugins() {
         DirtUpdater.getLogger().info("---- Plugins To Check Updates ----");
         jsonToMap().keySet().forEach(name -> DirtUpdater.getLogger().info("• " + name));
+    }
+
+    public static void logUpdates(String name) {
+
+        MessageEmbed update = new EmbedBuilder()
+                .setColor(Color.GREEN)
+                .setTitle("<:redbulletpoint:539273059631104052>**Dirt-Updater**<:redbulletpoint:539273059631104052>")
+                .setDescription("**" + name + "** has been updated successfully!")
+                .setTimestamp(Instant.now())
+                .build();
+
+        SpongeDiscordLib
+                .getJDA()
+                .getTextChannelById("566095634008899585")
+                .sendMessage(update)
+                .queue();
+
     }
 
 }
