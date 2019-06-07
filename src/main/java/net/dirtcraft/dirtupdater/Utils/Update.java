@@ -69,6 +69,7 @@ public class Update {
         PluginConfiguration.Main.Projects.put(name, buildNumber);
         ConfigManager.save();
 
+
         DirtUpdater.getLogger().warn(pluginName + " " + "has been downloaded successfully!");
     }
 
