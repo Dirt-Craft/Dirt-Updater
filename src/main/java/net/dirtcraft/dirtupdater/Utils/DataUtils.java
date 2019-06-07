@@ -79,7 +79,7 @@ public class DataUtils {
 
         SpongeDiscordLib
                 .getJDA()
-                .getTextChannelById("566095634008899585")
+                .getTextChannelsByName("server-log", true).get(0)
                 .sendMessage(update)
                 .queue();
 
