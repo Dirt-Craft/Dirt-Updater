@@ -38,7 +38,6 @@ public class Update {
             } else if (!checkPluginDir(pluginDir, name)) {
                 try {
                     download(pluginDir, name, buildNumber);
-                    return;
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
