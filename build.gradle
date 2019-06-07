@@ -19,7 +19,7 @@ targetCompatibility = '1.8'
 }*/
 
 dependencies {
-    shadow 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
+    compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 }
 /*
