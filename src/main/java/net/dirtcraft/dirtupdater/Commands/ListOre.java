@@ -50,6 +50,10 @@ public class ListOre implements CommandExecutor {
 
         });
 
+        if (contents.size() == 0) {
+            contents.add(DataUtils.format("&7All of your Ore plugins are &aupdated&7!"));
+        }
+
         return contents;
     }
 }
