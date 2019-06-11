@@ -6,9 +6,6 @@ plugins {
 group = pluginGroup
 version = pluginVersion
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
 repositories {
     jcenter()
     maven { url 'https://jitpack.io' }
@@ -20,4 +17,5 @@ dependencies {
     implementation 'com.github.Dirt-Craft:Sponge-Discord-Lib:5ac2ef6725'
 }
 
+compileJava.options.encoding = 'UTF-8'
 sponge.plugin.id = pluginId

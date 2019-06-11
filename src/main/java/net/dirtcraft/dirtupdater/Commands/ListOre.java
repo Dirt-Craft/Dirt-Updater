@@ -47,7 +47,7 @@ public class ListOre implements CommandExecutor {
             if (!plugin.getVersion().isPresent()) return;
 
             contents.add(Text.builder()
-                    .append(DataUtils.format("»&r &6" + plugin.getName()))
+                    .append(DataUtils.format("test »&r &6" + plugin.getName()))
                     .onHover(TextActions.showText(DataUtils.format("&6Ore &eRepository&r\n" +
                             "\n&7Current Version&8: &6" + plugin.getVersion().get() + "&r\n" +
                             "&7Recommended Version&8: &a" + newVersion)))
