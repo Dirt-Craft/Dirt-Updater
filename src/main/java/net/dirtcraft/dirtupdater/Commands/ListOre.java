@@ -19,6 +19,8 @@ public class ListOre implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource source, CommandContext args) {
 
+        source.sendMessage(DataUtils.format("&7Fetching updates..."));
+
         Task.builder()
                 .async()
                 .execute(() ->
@@ -40,7 +42,7 @@ public class ListOre implements CommandExecutor {
             if (!plugin.getVersion().isPresent()) return;
 
             contents.add(Text.builder()
-                    .append(DataUtils.format(("&8&l» &6" + plugin.getName()).replace("Â", "")))
+                    .append(DataUtils.format("&8&l» &6" + plugin.getName()))
                     .onHover(TextActions.showText(DataUtils.format("&6Ore &eRepository&r\n" +
                             "\n&7Current Version&8: &6" + plugin.getVersion().get() + "&r\n" +
                             "&7Recommended Version&8: &a" + newVersion)))
