@@ -8,6 +8,9 @@ import net.dirtcraft.dirtupdater.DirtUpdater;
 import net.dirtcraft.discord.spongediscordlib.SpongeDiscordLib;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.serializer.TextSerializer;
+import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -19,6 +22,10 @@ import java.time.Instant;
 import java.util.HashMap;
 
 public class DataUtils {
+
+    public static Text format(String unformattedString) {
+        return TextSerializers.FORMATTING_CODE.deserialize(unformattedString);
+    }
     public static String getStringFromURL(String url) {
         try (InputStream in = new URL(url).openStream(); BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             StringBuilder out = new StringBuilder();

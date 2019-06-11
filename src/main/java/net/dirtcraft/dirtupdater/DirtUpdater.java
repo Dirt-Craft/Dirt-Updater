@@ -57,4 +57,8 @@ public class DirtUpdater {
     public static PluginContainer getContainer() {
         return instance.container;
     }
+
+    public static DirtUpdater getInstance() {
+        return instance;
+    }
 }
