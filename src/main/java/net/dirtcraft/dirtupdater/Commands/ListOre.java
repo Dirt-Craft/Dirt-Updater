@@ -38,11 +38,16 @@ public class ListOre implements CommandExecutor {
     private ArrayList<Text> contents() {
         ArrayList<Text> contents = new ArrayList<>();
 
+        if (List.listPlugins() == null) {
+            contents.add(DataUtils.format("&7All of your Ore plugins are &aupdated&7!"));
+            return contents;
+        }
+
         List.listPlugins().forEach((plugin, newVersion) -> {
             if (!plugin.getVersion().isPresent()) return;
 
             contents.add(Text.builder()
-                    .append(DataUtils.format("&8&l» &6" + plugin.getName()))
+                    .append(DataUtils.format("»&r &6" + plugin.getName()))
                     .onHover(TextActions.showText(DataUtils.format("&6Ore &eRepository&r\n" +
                             "\n&7Current Version&8: &6" + plugin.getVersion().get() + "&r\n" +
                             "&7Recommended Version&8: &a" + newVersion)))
