@@ -21,21 +21,22 @@ public class Update {
         }
         final File pluginDir = DirtUpdater.getContainer().getSource().get().getParent().toFile();
 
+        ConfigManager.load();
         DataUtils.jsonToMap().forEach((name, url) -> {
 
             int buildNumber = DataUtils.getBuildNumber(DataUtils.getJsonObjFromString(DataUtils.getStringFromURL(url)));
 
             if (!PluginConfiguration.Main.Projects.containsKey(name)) {
                 try {
-                    DirtUpdater.getLogger().warn("Added new plugin: " + name);
-                    PluginConfiguration.Main.Projects.put(name, buildNumber);
-                    ConfigManager.save();
                     for (File plugins : pluginDir.listFiles()) {
                         if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
                             plugins.delete();
                             download(pluginDir, name, buildNumber);
                         }
                     }
+                    DirtUpdater.getLogger().warn("Added new plugin: " + name);
+                    PluginConfiguration.Main.Projects.put(name, buildNumber);
+                    ConfigManager.save();
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
