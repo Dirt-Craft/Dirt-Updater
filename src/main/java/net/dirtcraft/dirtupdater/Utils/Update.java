@@ -30,7 +30,12 @@ public class Update {
                     DirtUpdater.getLogger().warn("Added new plugin: " + name);
                     PluginConfiguration.Main.Projects.put(name, buildNumber);
                     ConfigManager.save();
-                    download(pluginDir, name, buildNumber);
+                    for (File plugins : pluginDir.listFiles()) {
+                        if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
+                            plugins.delete();
+                            download(pluginDir, name, buildNumber);
+                        }
+                    }
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
@@ -42,16 +47,16 @@ public class Update {
                     exception.printStackTrace();
                 }
             } else if (PluginConfiguration.Main.Projects.get(name) != buildNumber) {
+                try {
                     for (File plugins : pluginDir.listFiles()) {
                         if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
-                            try {
-                                plugins.delete();
-                                download(pluginDir, name, buildNumber);
-                            } catch (IOException exception) {
-                                exception.printStackTrace();
-                            }
+                            plugins.delete();
+                            download(pluginDir, name, buildNumber);
                         }
                     }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
         });
     }
