@@ -31,9 +31,9 @@ public class Update {
                     for (File plugins : pluginDir.listFiles()) {
                         if (plugins.getName().toLowerCase().contains(name.toLowerCase())) {
                             plugins.delete();
-                            download(pluginDir, name, buildNumber);
                         }
                     }
+                    download(pluginDir, name, buildNumber);
                     DirtUpdater.getLogger().warn("Added new plugin: " + name);
                     PluginConfiguration.Main.Projects.put(name, buildNumber);
                     ConfigManager.save();
