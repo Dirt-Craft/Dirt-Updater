@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import net.dirtcraft.dirtupdater.Configuration.ConfigManager;
 import net.dirtcraft.dirtupdater.Configuration.PluginConfiguration;
 import net.dirtcraft.dirtupdater.DirtUpdater;
-import net.dirtcraft.discord.spongediscordlib.SpongeDiscordLib;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -15,7 +14,6 @@ public class Update {
 
     public static void checkUpdates() {
         DirtUpdater.getLogger().info("Checking for updates...");
-        if (SpongeDiscordLib.getServerName().toLowerCase().contains("shiny")) return;
 
         if (!DirtUpdater.getContainer().getSource().isPresent()) {
             DirtUpdater.getLogger().error("Could not retrieve plugins directory!");
