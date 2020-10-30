@@ -6,8 +6,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import net.dirtcraft.dirtupdater.DirtUpdater;
 import net.dirtcraft.discord.spongediscordlib.SpongeDiscordLib;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.awt.*;
 import java.io.BufferedReader;
