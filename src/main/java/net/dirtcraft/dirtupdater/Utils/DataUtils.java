@@ -1,6 +1,7 @@
 package net.dirtcraft.dirtupdater.Utils;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
@@ -32,17 +33,21 @@ public class DataUtils {
         }
     }
 
+    public static JsonObject getJsonObjFromUrl(String url) {
+        return getJsonObjFromString(getStringFromURL(url));
+    }
+
     public static JsonObject getJsonObjFromString(String jsonString) {
         return new JsonParser().parse(jsonString).getAsJsonObject();
     }
 
-    public static String getArtifactJarFromJson(JsonObject js) {
-        if(!js.isJsonObject()) return null;
+    public static String getArtifactJarFromJson(JsonObject js) throws IOException {
+        if (!js.isJsonObject()) throw new IOException("JSON Object is null.");
 
-        return js.get("url").toString() +
-                "artifact" + "/" + "build" + "/" + "libs" + "/" +
-                js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString()
-                        .replace("\"", "");
+        JsonObject artifact = js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject();
+        String relativePath = artifact.get("relativePath").getAsString();
+
+        return js.get("url").toString() + "artifact" + "/" + relativePath;
     }
 
     public static String getFileName(JsonObject js) {

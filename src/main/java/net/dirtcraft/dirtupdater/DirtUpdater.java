@@ -41,7 +41,7 @@ public class DirtUpdater {
     private static DirtUpdater instance;
 
     public static final String globalJSONString = DataUtils.getStringFromURL("http://164.132.201.67/plugin/update.json");
-    public static final JsonObject globalJSON = DataUtils.getJsonObjFromString(DataUtils.getStringFromURL("http://164.132.201.67/plugin/update.json"));
+    public static final JsonObject globalJSON = DataUtils.getJsonObjFromString(globalJSONString);
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
