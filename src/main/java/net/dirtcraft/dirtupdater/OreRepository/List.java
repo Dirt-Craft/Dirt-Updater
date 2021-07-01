@@ -6,9 +6,7 @@ import net.dirtcraft.dirtupdater.DirtUpdater;
 import net.dirtcraft.dirtupdater.Utils.DataUtils;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.scheduler.Task;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class List {

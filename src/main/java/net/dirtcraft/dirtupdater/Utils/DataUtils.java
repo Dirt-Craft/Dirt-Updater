@@ -9,7 +9,6 @@ import net.dirtcraft.discord.spongediscordlib.SpongeDiscordLib;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.awt.*;
@@ -22,6 +21,7 @@ import java.time.Instant;
 import java.util.HashMap;
 
 public class DataUtils {
+    public static final String globalJSONString = DataUtils.getStringFromURL("http://164.132.201.67/plugin/update.json");
 
     public static Text format(String unformattedString) {
         return TextSerializers.FORMATTING_CODE.deserialize(unformattedString);
@@ -67,7 +67,7 @@ public class DataUtils {
     }
 
     public static HashMap<String, String> jsonToMap() {
-        return new Gson().fromJson(DirtUpdater.globalJSONString, new TypeToken<HashMap<String, String>>(){}.getType());
+        return new Gson().fromJson(globalJSONString, new TypeToken<HashMap<String, String>>(){}.getType());
     }
 
     public static void logPlugins() {
