@@ -23,6 +23,7 @@ public class Update {
 
         DataUtils.jsonToMap().forEach((name, url) -> {
 
+            if (!PluginConfiguration.Main.Update.computeIfAbsent(name, x->true)) return;
             int buildNumber = DataUtils.getBuildNumber(DataUtils.getJsonObjFromString(DataUtils.getStringFromURL(url)));
 
             if (!PluginConfiguration.Main.Projects.containsKey(name)) {
@@ -54,6 +55,7 @@ public class Update {
                     }
             }
         });
+        ConfigManager.save();
     }
 
     private static void download(File pluginDir, String name, int buildNumber) throws IOException {
