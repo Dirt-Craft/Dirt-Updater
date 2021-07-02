@@ -21,7 +21,7 @@ public class ConfigManager {
         load();
     }
 
-    public void load() {
+    public static void load() {
         try {
             node = loader.load(options);
             config = node.getValue(TypeToken.of(PluginConfiguration.class), new PluginConfiguration());
