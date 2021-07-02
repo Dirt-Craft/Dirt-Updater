@@ -15,5 +15,11 @@ public class PluginConfiguration {
     public static class Main {
         @Setting
         public static HashMap<String, Integer> Projects = new HashMap<>();
+
+        @Setting(value = "Should-Update", comment = "Should the project be updated/downloaded?")
+        public static HashMap<String, Boolean> Update = new HashMap<>();
+
+        @Setting(value = "Tracked-Mods", comment = "Mods to update automatically.")
+        public static HashMap<String, String> Mods = new HashMap<>();
     }
 }

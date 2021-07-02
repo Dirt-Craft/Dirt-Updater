@@ -6,9 +6,6 @@ plugins {
 group = pluginGroup
 version = pluginVersion
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
 repositories {
     jcenter()
     maven { url 'https://jitpack.io' }
@@ -16,8 +13,10 @@ repositories {
 
 dependencies {
     compile 'org.spongepowered:spongeapi:7.2.0'
+    compile ("org.spongepowered:spongecommon:1.12.2-7.1.7-SNAPSHOT:dev")
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     implementation 'com.github.Dirt-Craft:Sponge-Discord-Lib:deploy-SNAPSHOT'
 }
 
+compileJava.options.encoding = 'UTF-8'
 sponge.plugin.id = pluginId

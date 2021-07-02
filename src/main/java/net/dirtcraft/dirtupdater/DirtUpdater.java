@@ -1,19 +1,22 @@
 package net.dirtcraft.dirtupdater;
 
-import com.google.gson.JsonObject;
 import com.google.inject.Inject;
 import net.dirtcraft.dirtupdater.Configuration.ConfigManager;
+import net.dirtcraft.dirtupdater.OreRepository.List;
 import net.dirtcraft.dirtupdater.Utils.DataUtils;
-import net.dirtcraft.dirtupdater.Utils.EventListeners;
+import net.dirtcraft.dirtupdater.Utils.RegisterCommands;
+import net.dirtcraft.dirtupdater.Utils.Updater;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.event.game.state.GameConstructionEvent;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.scheduler.Task;
 
 @Plugin(
         id = "dirt-updater",
@@ -40,18 +43,28 @@ public class DirtUpdater {
 
     private static DirtUpdater instance;
 
-    public static final String globalJSONString = DataUtils.getStringFromURL("http://164.132.201.67/plugin/update.json");
-    public static final JsonObject globalJSON = DataUtils.getJsonObjFromString(globalJSONString);
-
     @Listener
-    public void onPreInit(GamePreInitializationEvent event) {
+    public void onPreInit(GameConstructionEvent event) {
         instance = this;
         configManager = new ConfigManager(loader);
-        Sponge.getEventManager().registerListeners(instance, new EventListeners());
+        Updater updater = new Updater();
+        updater.checkUpdates();
+        DataUtils.logPlugins();
+        Task.builder()
+                .async()
+                .execute(updater::checkAndRebootIfNeeded)
+                .submit(DirtUpdater.getInstance());
+        List.listPlugins();
     }
 
-    public static DirtUpdater getInstance() {
-        return instance;
+    @Listener
+    public void onGameInit(GameInitializationEvent event) {
+        new RegisterCommands();
+    }
+
+    @Listener
+    public void onServerStopping(GameStoppingServerEvent event){
+        new Updater().checkUpdates();
     }
 
     public static Logger getLogger() {
@@ -60,5 +73,9 @@ public class DirtUpdater {
 
     public static PluginContainer getContainer() {
         return instance.container;
+    }
+
+    public static DirtUpdater getInstance() {
+        return instance;
     }
 }

@@ -1,7 +1,6 @@
 package net.dirtcraft.dirtupdater.Utils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
@@ -9,6 +8,8 @@ import net.dirtcraft.dirtupdater.DirtUpdater;
 import net.dirtcraft.discord.spongediscordlib.SpongeDiscordLib;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -20,6 +21,11 @@ import java.time.Instant;
 import java.util.HashMap;
 
 public class DataUtils {
+    public static final String globalJSONString = DataUtils.getStringFromURL("http://164.132.201.67/plugin/update.json");
+
+    public static Text format(String unformattedString) {
+        return TextSerializers.FORMATTING_CODE.deserialize(unformattedString);
+    }
     public static String getStringFromURL(String url) {
         try (InputStream in = new URL(url).openStream(); BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             StringBuilder out = new StringBuilder();
@@ -33,21 +39,17 @@ public class DataUtils {
         }
     }
 
-    public static JsonObject getJsonObjFromUrl(String url) {
-        return getJsonObjFromString(getStringFromURL(url));
-    }
-
     public static JsonObject getJsonObjFromString(String jsonString) {
         return new JsonParser().parse(jsonString).getAsJsonObject();
     }
 
-    public static String getArtifactJarFromJson(JsonObject js) throws IOException {
-        if (!js.isJsonObject()) throw new IOException("JSON Object is null.");
+    public static String getArtifactJarFromJson(JsonObject js) {
+        if(!js.isJsonObject()) return null;
 
-        JsonObject artifact = js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject();
-        String relativePath = artifact.get("relativePath").getAsString();
-
-        return js.get("url").toString() + "artifact" + "/" + relativePath;
+        return js.get("url").toString() +
+                "artifact" + "/" + "build" + "/" + "libs" + "/" +
+                js.get("artifacts").getAsJsonArray().get(0).getAsJsonObject().get("fileName").toString()
+                        .replace("\"", "");
     }
 
     public static String getFileName(JsonObject js) {
@@ -65,7 +67,7 @@ public class DataUtils {
     }
 
     public static HashMap<String, String> jsonToMap() {
-        return new Gson().fromJson(DirtUpdater.globalJSONString, new TypeToken<HashMap<String, String>>(){}.getType());
+        return new Gson().fromJson(globalJSONString, new TypeToken<HashMap<String, String>>(){}.getType());
     }
 
     public static void logPlugins() {
